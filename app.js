@@ -51,8 +51,8 @@ function initGateTransition() {
  * Initializes the tactical countdown timer
  */
 function initCountdownTimer() {
-    // Target event date: June 5, 2026 at 08:00 AM local time
-    const targetDate = new Date('2026-06-05T08:00:00').getTime();
+    // Target event date: June 5, 2026 at 10:00 AM local time
+    const targetDate = new Date('2026-06-05T10:00:00').getTime();
 
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
