@@ -132,6 +132,23 @@ function initRSVPForm() {
             if (btnText) btnText.classList.add('hidden');
             if (btnSpinner) btnSpinner.classList.remove('hidden');
 
+            // Form message for Telegram
+            const messageText = `🔔 *Новый ответ на приглашение!*\n\n👤 *Имя:* ${nameVal}\n📢 *Статус:* ${statusVal === 'ready' ? '✅ С удовольствием приду поддержать бойцов' : '❌ К сожалению, не смогу присутствовать'}`;
+
+            // Send to Telegram Bot API
+            const token = '8334443770:AAFCWnMi4CuIvk7b06NPbH4Wt943IUZGIBE';
+            const chatId = '-5196552819';
+            const tgUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+
+            fetch(tgUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Telegram response:', data);
+                })
+                .catch(err => {
+                    console.error('Telegram error:', err);
+                });
+
             // Simulate server request delay
             setTimeout(() => {
                 // Save to localStorage
