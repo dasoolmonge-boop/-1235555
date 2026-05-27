@@ -1,0 +1,950 @@
+/* ==========================================================================
+   Tactical CSS Design - Krapoviy Beret Invitation
+   ========================================================================== */
+
+/* Design Tokens & Variables */
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-panel: rgba(20, 20, 20, 0.85);
+    --bg-panel-dark: rgba(12, 12, 12, 0.9);
+    --text-primary: #f5f5f5;
+    --text-secondary: #aaaaaa;
+    --text-muted: #666666;
+    
+    /* Brand Theme Colors */
+    --color-maroon: #800020; /* Краповый */
+    --color-maroon-hover: #a30029;
+    --color-maroon-glow: rgba(128, 0, 32, 0.6);
+    --color-gold: #c5a059; /* Золотистый */
+    --color-gold-glow: rgba(197, 160, 89, 0.4);
+    --color-olive: #4b5320; /* Оливковый */
+    --color-olive-dark: #353b16;
+    
+    /* Fonts */
+    --font-heading: 'Russo One', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+    
+    /* Layout */
+    --container-width: 800px;
+    --border-radius: 12px;
+    --transition-speed: 0.4s;
+}
+
+/* Base Reset & Styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+strong {
+    color: var(--color-gold);
+    font-weight: 700;
+}
+
+a {
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--text-primary);
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   tactical-overlay & scanlines
+   ========================================================================== */
+.tactical-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 4px, 6px 100%;
+    opacity: 0.15;
+}
+
+/* ==========================================================================
+   GATEWAY / ENVELOPE COVER
+   ========================================================================== */
+.gate-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    background-color: #0b0c10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+}
+
+.gate-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(128, 0, 32, 0.15) 0%, rgba(10, 10, 10, 0.95) 100%);
+    z-index: 1;
+}
+
+.gate-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Circular Emblem with Pulse Glow */
+.gate-emblem-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.gate-emblem {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--color-gold);
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2;
+    position: relative;
+}
+
+.gate-emblem-wrapper:hover .gate-emblem {
+    transform: scale(1.08) rotate(5deg);
+}
+
+.glow-ring {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    border: 2px dashed var(--color-maroon);
+    z-index: 1;
+    animation: rotate-ring 12s linear infinite;
+    opacity: 0.8;
+}
+
+.gate-emblem-wrapper:hover .glow-ring {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 25px var(--color-gold-glow);
+}
+
+@keyframes rotate-ring {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.gate-title {
+    font-size: 2.8rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    margin-bottom: 5px;
+    font-weight: 900;
+}
+
+.gate-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-maroon);
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 8px rgba(128, 0, 32, 0.5);
+}
+
+.gate-divider {
+    width: 80px;
+    height: 3px;
+    background-color: var(--color-gold);
+    margin-bottom: 25px;
+}
+
+.gate-instruction {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    font-weight: 300;
+    max-width: 300px;
+}
+
+/* Buttons */
+.open-btn, .tactical-btn {
+    background: linear-gradient(135deg, var(--color-maroon) 0%, #5a0016 100%);
+    color: var(--text-primary);
+    border: 1px solid var(--color-gold);
+    font-family: var(--font-heading);
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1);
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.open-btn::before, .tactical-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.7s ease;
+}
+
+.open-btn:hover::before, .tactical-btn:hover::before {
+    left: 100%;
+}
+
+.open-btn:hover, .tactical-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--color-maroon-hover) 0%, var(--color-maroon) 100%);
+    box-shadow: 0 6px 20px var(--color-maroon-glow);
+    border-color: var(--text-primary);
+}
+
+.open-btn:active, .tactical-btn:active {
+    transform: translateY(1px);
+}
+
+/* Envelope opening slide animation class */
+.gate-cover.opened {
+    transform: translateY(-100vh);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   MAIN CONTENT
+   ========================================================================== */
+.main-content {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    padding-bottom: 60px;
+    background-image: radial-gradient(circle at center, #18191d 0%, #090a0c 100%);
+}
+
+.main-content.visible {
+    opacity: 1;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
+}
+
+.hero-badge {
+    display: inline-block;
+    border: 1px solid var(--color-maroon);
+    color: var(--color-maroon);
+    background-color: rgba(128, 0, 32, 0.08);
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    animation: blink-badge 2s infinite;
+}
+
+@keyframes blink-badge {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 0.4; }
+}
+
+.main-title {
+    font-size: 2.2rem;
+    line-height: 1.25;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    color: var(--text-primary);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 600px) {
+    .main-title {
+        font-size: 1.6rem;
+    }
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: var(--color-gold);
+    letter-spacing: 3px;
+}
+
+.military-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.military-divider::before, .military-divider::after {
+    content: '';
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.military-divider .star {
+    color: var(--color-gold);
+    font-size: 1.2rem;
+    margin: 0 15px;
+}
+
+/* Tactical Photo Frame */
+.banner-frame {
+    position: relative;
+    width: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.7) contrast(1.15) sepia(0.15);
+    transition: transform 1.5s ease;
+}
+
+.banner-frame:hover .banner-image {
+    transform: scale(1.03);
+}
+
+.banner-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(128, 0, 32, 0.08) 50%);
+    background-size: 100% 8px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* HUD corners */
+.corner-border {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-gold);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.top-left { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.top-right { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+.bottom-left { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+.bottom-right { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+/* Sections */
+.section {
+    padding: 30px 0;
+}
+
+/* Tactical Card (Glassmorphism design) */
+.tactical-card {
+    background-color: var(--bg-panel);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-left: 4px solid var(--color-maroon);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.tactical-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    font-weight: 300;
+}
+
+.card-text.highlight {
+    border-left: 2px dashed var(--color-gold);
+    padding-left: 15px;
+    margin-top: 25px;
+    font-style: italic;
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Details Grid
+   ========================================================================== */
+.sub-section-title {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.sub-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: var(--color-maroon);
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.detail-card {
+    background-color: var(--bg-panel);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--border-radius);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-gold-glow);
+}
+
+.detail-card.full-width {
+    grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+    .detail-card.full-width {
+        grid-column: span 1;
+    }
+}
+
+.detail-icon {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+.detail-card h4 {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.detail-val {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--color-gold);
+    margin-bottom: 4px;
+}
+
+.detail-val.text-large {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+}
+
+.detail-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Map Button */
+.map-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+}
+
+/* ==========================================================================
+   Countdown Timer
+   ========================================================================== */
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.timer-unit {
+    background-color: rgba(10, 10, 10, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px 5px;
+    text-align: center;
+}
+
+.timer-num {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--color-gold);
+    line-height: 1.1;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px var(--color-gold-glow);
+}
+
+.timer-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+    .timer-num {
+        font-size: 1.6rem;
+    }
+    .timer-label {
+        font-size: 0.65rem;
+    }
+}
+
+/* ==========================================================================
+   Requirements section
+   ========================================================================== */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.info-card {
+    background-color: var(--bg-panel);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card-header-icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+}
+
+.info-card h3 {
+    font-size: 1.1rem;
+    color: var(--color-gold);
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 8px;
+}
+
+.info-card ul {
+    list-style: none;
+}
+
+.info-card li {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 20px;
+    font-weight: 300;
+}
+
+.info-card li::before {
+    content: '▪';
+    color: var(--color-maroon);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   RSVP Form Section
+   ========================================================================== */
+.rsvp-card {
+    background-color: var(--bg-panel-dark);
+    border: 1px solid var(--color-maroon);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+/* HUD elements on RSVP card */
+.rsvp-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid var(--color-maroon);
+    border-left: 2px solid var(--color-maroon);
+}
+.rsvp-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    border-bottom: 2px solid var(--color-maroon);
+    border-right: 2px solid var(--color-maroon);
+}
+
+.rsvp-intro {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tactical-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.85rem;
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.form-input {
+    width: 100%;
+    background-color: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 12px 18px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    transition: all 0.3s ease;
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-maroon);
+    box-shadow: 0 0 10px var(--color-maroon-glow);
+    background-color: #0d0d0d;
+}
+
+.form-input.textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Custom Radios */
+.tactical-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px 0;
+}
+
+.radio-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio {
+    height: 20px;
+    width: 20px;
+    background-color: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    margin-right: 12px;
+    display: inline-block;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.radio-label:hover input ~ .custom-radio {
+    border-color: var(--color-maroon);
+}
+
+.radio-label input:checked ~ .custom-radio {
+    background-color: var(--color-maroon);
+    border-color: var(--color-maroon);
+    box-shadow: 0 0 10px var(--color-maroon-glow);
+}
+
+.custom-radio::after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-gold);
+}
+
+.radio-label input:checked ~ .custom-radio::after {
+    display: block;
+}
+
+.radio-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+.radio-label input:checked ~ .radio-text {
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+/* Submit Button Loading state */
+.submit-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Success State styling */
+.rsvp-success {
+    text-align: center;
+    padding: 30px 10px;
+    animation: fade-in 0.5s ease forwards;
+}
+
+.success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: rgba(197, 160, 89, 0.15);
+    border: 2px solid var(--color-gold);
+    color: var(--color-gold);
+    font-size: 2.2rem;
+    line-height: 60px;
+    margin: 0 auto 20px;
+    text-shadow: 0 0 10px var(--color-gold-glow);
+    box-shadow: 0 0 15px var(--color-gold-glow);
+}
+
+.rsvp-success h3 {
+    color: var(--color-gold);
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.rsvp-success p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
+    box-shadow: none;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+}
+
+.secondary-btn:hover {
+    background-color: rgba(197, 160, 89, 0.1);
+    color: var(--text-primary);
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Footer Section
+   ========================================================================== */
+.footer-section {
+    padding: 60px 0 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: #070709;
+}
+
+.signature {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+
+.commander-title {
+    font-size: 1.2rem;
+    color: var(--color-gold);
+    margin-bottom: 20px;
+}
+
+.military-line {
+    width: 150px;
+    height: 1px;
+    background-color: var(--color-maroon);
+    margin: 0 auto 25px;
+}
+
+.contacts-info {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+.phone-link {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.phone-link:hover {
+    color: var(--color-maroon-hover);
+    text-shadow: 0 0 10px var(--color-maroon-glow);
+}
+
+.copyright {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}

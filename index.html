@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предписание: Квалификационные испытания на право ношения Крапового Берета</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Официальное индивидуальное предписание на квалификационные испытания на право ношения Крапового Берета. Дата проведения: 5 июня 2026 года.">
+    <meta property="og:title" content="Предписание: Испытания на Краповый Берет">
+    <meta property="og:description" content="Индивидуальный вызов на испытания. 5 июня 2026 года, учебный центр ОДОН.">
+    <meta property="og:image" content="assets/original_image.jpg">
+    <meta property="og:type" content="website">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/emblem.jpg" type="image/jpeg">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Russo+One&display=swap" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= GATEWAY / ENVELOPE COVER ================= -->
+    <div id="gate-cover" class="gate-cover">
+        <div class="gate-bg-overlay"></div>
+        <div class="gate-content">
+            <div class="gate-emblem-wrapper">
+                <img id="gate-emblem" src="assets/emblem.jpg" alt="Эмблема Витязь" class="gate-emblem">
+                <div class="glow-ring"></div>
+            </div>
+            <h1 class="gate-title animate-pulse">ВАС ВЫЗВАЛИ</h1>
+            <p class="gate-subtitle">НА КВАЛИФИКАЦИОННЫЕ ИСПЫТАНИЯ</p>
+            <div class="gate-divider"></div>
+            <p class="gate-instruction">Нажмите на эмблему, чтобы вскрыть предписание</p>
+            <button id="open-btn" class="open-btn">ВСКРЫТЬ ПАКЕТ</button>
+        </div>
+    </div>
+
+    <!-- ================= MAIN SITE CONTENT ================= -->
+    <div id="main-content" class="main-content hidden">
+        <header class="hero-section">
+            <div class="container">
+                <div class="hero-badge">СЕКРЕТНО // ОСОБАЯ ВАЖНОСТЬ</div>
+                <h2 class="section-title">ИНДИВИДУАЛЬНОЕ ПРЕДПИСАНИЕ</h2>
+                <div class="military-divider">
+                    <span class="star">★</span>
+                </div>
+                <h1 class="main-title">КВАЛИФИКАЦИОННЫЕ ИСПЫТАНИЯ НА ПРАВО НОШЕНИЯ КРАПОВОГО БЕРЕТА</h1>
+                
+                <!-- Banner Image with Tactical Overlay -->
+                <div class="banner-frame">
+                    <img src="assets/banner.jpg" alt="Строевой смотр" class="banner-image">
+                    <div class="banner-scanline"></div>
+                    <div class="corner-border top-left"></div>
+                    <div class="corner-border top-right"></div>
+                    <div class="corner-border bottom-left"></div>
+                    <div class="corner-border bottom-right"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Greeting Block -->
+        <section class="section greeting-section">
+            <div class="container">
+                <div class="tactical-card">
+                    <h3 class="card-title">УВАЖАЕМЫЙ КАНДИДАТ!</h3>
+                    <p class="card-text">
+                        Приглашаем Вас принять участие в официальных квалификационных испытаниях на право ношения <strong>Крапового берета</strong> — высшего символа профессионального мастерства, чести и мужества сил специального назначения Росгвардии.
+                    </p>
+                    <p class="card-text highlight">
+                        Эти испытания проверят предел Ваших физических возможностей, стойкость духа и волю к победе. Помните: право ношения берета заслуживают только лучшие из лучших!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Details Block -->
+        <section class="section details-section">
+            <div class="container">
+                <h2 class="sub-section-title">СВЕДЕНИЯ О ПРОВЕДЕНИИ</h2>
+                <div class="details-grid">
+                    <!-- Date Card -->
+                    <div class="detail-card">
+                        <div class="detail-icon">📅</div>
+                        <h4>ДАТА ПРОВЕДЕНИЯ</h4>
+                        <div class="detail-val">5 ИЮНЯ 2026</div>
+                        <div class="detail-sub">ПЯТНИЦА</div>
+                    </div>
+                    <!-- Time Card -->
+                    <div class="detail-card">
+                        <div class="detail-icon">⏰</div>
+                        <h4>ВРЕМЯ СБОРА</h4>
+                        <div class="detail-val">08:00</div>
+                        <div class="detail-sub">БЕЗ ОПОЗДАНИЙ</div>
+                    </div>
+                    <!-- Place Card -->
+                    <div class="detail-card full-width">
+                        <div class="detail-icon">📍</div>
+                        <h4>МЕСТО ПРОВЕДЕНИЯ</h4>
+                        <div class="detail-val text-large">Учебный центр ОДОН им. Ф.Э. Дзержинского</div>
+                        <div class="detail-sub">мкрн. Новский, ул. Новая, д. 71, Балашиха, Московская обл.</div>
+                        <a href="https://yandex.ru/maps/?text=Балашиха+мкрн.+Новский+ул.+Новая+71" target="_blank" rel="noopener noreferrer" class="tactical-btn map-btn">
+                            ПОСТРОИТЬ МАРШРУТ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Timer Section -->
+        <section class="section countdown-section">
+            <div class="container">
+                <div class="tactical-card dark-glass">
+                    <h3 class="card-title text-center">ДО НАЧАЛА ИСПЫТАНИЙ ОСТАЛОСЬ:</h3>
+                    <div id="countdown-timer" class="countdown-grid">
+                        <div class="timer-unit">
+                            <span id="days" class="timer-num">00</span>
+                            <span class="timer-label">дней</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span id="hours" class="timer-num">00</span>
+                            <span class="timer-label">часов</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span id="minutes" class="timer-num">00</span>
+                            <span class="timer-label">минут</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span id="seconds" class="timer-num">00</span>
+                            <span class="timer-label">секунд</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Requirements and Dress Code Section -->
+        <section class="section requirements-section">
+            <div class="container">
+                <h2 class="sub-section-title">ИНСТРУКТАЖ И ЭКИПИРОВКА</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="card-header-icon">🪖</div>
+                        <h3>Форма одежды</h3>
+                        <ul>
+                            <li>Полевая боевая форма (камуфляж) по сезону</li>
+                            <li>Армейские берцы с высоким берцем</li>
+                            <li>Спортивная экипировка для сдачи физических нормативов</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header-icon">🎒</div>
+                        <h3>С собой иметь</h3>
+                        <ul>
+                            <li>Комплект штатного оружия и боевой экипировки</li>
+                            <li>Средства индивидуальной бронезащиты (шлем, бронежилет)</li>
+                            <li>Официальный медицинский допуск к испытаниям</li>
+                            <li>Личные документы (удостоверение личности)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Form Section -->
+        <section id="rsvp-section" class="section rsvp-section">
+            <div class="container">
+                <div class="rsvp-card">
+                    <h2 class="sub-section-title text-center">ПОДТВЕРДИТЕ ГОТОВНОСТЬ</h2>
+                    <p class="rsvp-intro text-center">
+                        Каждый кандидат обязан подать рапорт о готовности или сообщить о невозможности участия.
+                    </p>
+                    
+                    <form id="rsvp-form" class="tactical-form">
+                        <!-- Name input -->
+                        <div class="form-group">
+                            <label for="candidate-name" class="form-label">Имя, Фамилия и Звание кандидата *</label>
+                            <input type="text" id="candidate-name" name="candidate-name" class="form-input" placeholder="Иванов Иван, сержант" required>
+                        </div>
+                        
+                        <!-- Unit input -->
+                        <div class="form-group">
+                            <label for="candidate-unit" class="form-label">Подразделение / Отряд *</label>
+                            <input type="text" id="candidate-unit" name="candidate-unit" class="form-input" placeholder="1-я группа СпН Витязь" required>
+                        </div>
+
+                        <!-- Status inputs (Radio buttons) -->
+                        <div class="form-group">
+                            <label class="form-label">Статус готовности *</label>
+                            <div class="tactical-radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="candidate-status" value="ready" required checked>
+                                    <span class="custom-radio"></span>
+                                    <span class="radio-text">Рапорт подан. К испытаниям готов!</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="candidate-status" value="unable" required>
+                                    <span class="custom-radio"></span>
+                                    <span class="radio-text">Не смогу принять участие</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Additional Comments -->
+                        <div class="form-group">
+                            <label for="candidate-notes" class="form-label">Дополнительные сведения / Вопросы</label>
+                            <textarea id="candidate-notes" name="candidate-notes" class="form-input textarea" placeholder="Укажите особые отметки, если имеются..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submit-btn" class="tactical-btn submit-btn">
+                            <span class="btn-text">ОТПРАВИТЬ РАПОРТ</span>
+                            <span class="btn-spinner hidden"></span>
+                        </button>
+                    </form>
+
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="rsvp-success" class="rsvp-success hidden">
+                        <div class="success-icon">✓</div>
+                        <h3>РАПОРТ УСПЕШНО ПРИНЯТ</h3>
+                        <p>Ваши данные внесены в протокол квалификационной комиссии. Ждем Вас на построении.</p>
+                        <button id="reset-btn" class="tactical-btn secondary-btn">Изменить рапорт</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="footer-section">
+            <div class="container text-center">
+                <p class="signature">С УВАЖЕНИЕМ,</p>
+                <h4 class="commander-title">КОМАНДИР ГРУППЫ СПЕЦИАЛЬНОГО НАЗНАЧЕНИЯ</h4>
+                <div class="military-line"></div>
+                <p class="contacts-info">
+                    Если возникли вопросы или форс-мажорные обстоятельства, свяжитесь с координатором Наталией:<br>
+                    <a href="tel:+79163102702" class="phone-link">+7 (916) 310-27-02</a>
+                </p>
+                <p class="copyright">&copy; 2026 Центр Специального Назначения "Витязь". Все права защищены.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Background Ambient Matrix Particles (Canvas or overlay for premium atmosphere) -->
+    <div class="tactical-overlay"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

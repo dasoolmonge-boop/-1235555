@@ -1,0 +1,5 @@
+# Git ignore file for invitation site
+reference_full.html
+parsed_data.txt
+.DS_Store
+Thumbs.db
