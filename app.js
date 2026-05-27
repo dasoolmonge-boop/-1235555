@@ -106,13 +106,11 @@ function initRSVPForm() {
 
     // Retrieve previous submission from localStorage if exists
     const cachedName = localStorage.getItem('candidate_name');
-    const cachedUnit = localStorage.getItem('candidate_unit');
     const cachedStatus = localStorage.getItem('candidate_status');
 
-    if (cachedName && cachedUnit && rsvpForm && rsvpSuccess) {
+    if (cachedName && rsvpForm && rsvpSuccess) {
         // Pre-fill form fields
         document.getElementById('candidate-name').value = cachedName;
-        document.getElementById('candidate-unit').value = cachedUnit;
         
         const radio = document.querySelector(`input[name="candidate-status"][value="${cachedStatus}"]`);
         if (radio) radio.checked = true;
@@ -127,9 +125,7 @@ function initRSVPForm() {
             e.preventDefault();
 
             const nameVal = document.getElementById('candidate-name').value.trim();
-            const unitVal = document.getElementById('candidate-unit').value.trim();
             const statusVal = document.querySelector('input[name="candidate-status"]:checked').value;
-            const notesVal = document.getElementById('candidate-notes').value.trim();
 
             // Show loading state
             if (submitBtn) submitBtn.disabled = true;
@@ -140,11 +136,7 @@ function initRSVPForm() {
             setTimeout(() => {
                 // Save to localStorage
                 localStorage.setItem('candidate_name', nameVal);
-                localStorage.setItem('candidate_unit', unitVal);
                 localStorage.setItem('candidate_status', statusVal);
-                if (notesVal) {
-                    localStorage.setItem('candidate_notes', notesVal);
-                }
 
                 // Reset button states
                 if (submitBtn) submitBtn.disabled = false;
@@ -166,9 +158,7 @@ function initRSVPForm() {
         resetBtn.addEventListener('click', () => {
             // Clear cache
             localStorage.removeItem('candidate_name');
-            localStorage.removeItem('candidate_unit');
             localStorage.removeItem('candidate_status');
-            localStorage.removeItem('candidate_notes');
 
             // Show form
             if (rsvpForm && rsvpSuccess) {
