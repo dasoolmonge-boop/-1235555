@@ -121,53 +121,90 @@ function initRSVPForm() {
     }
 
     if (rsvpForm) {
+        // Helper function to escape HTML special characters
+        const escapeHTML = (str) => {
+            return str.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;');
+        };
+
         rsvpForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
             const nameVal = document.getElementById('candidate-name').value.trim();
             const statusVal = document.querySelector('input[name="candidate-status"]:checked').value;
 
+            // Remove any previous error message
+            const existingError = rsvpForm.querySelector('.form-error-msg');
+            if (existingError) {
+                existingError.remove();
+            }
+
             // Show loading state
             if (submitBtn) submitBtn.disabled = true;
             if (btnText) btnText.classList.add('hidden');
             if (btnSpinner) btnSpinner.classList.remove('hidden');
 
-            // Form message for Telegram
-            const messageText = `🔔 *Новый ответ на приглашение!*\n\n👤 *Имя:* ${nameVal}\n📢 *Статус:* ${statusVal === 'ready' ? '✅ С удовольствием приду поддержать бойцов' : '❌ К сожалению, не смогу присутствовать'}`;
+            // Form message for Telegram using HTML formatting
+            const escapedName = escapeHTML(nameVal);
+            const messageText = `🔔 <b>Новый ответ на приглашение!</b>\n\n👤 <b>Имя:</b> ${escapedName}\n📢 <b>Статус:</b> ${statusVal === 'ready' ? '✅ С удовольствием приду поддержать бойцов' : '❌ К сожалению, не смогу присутствовать'}`;
 
             // Send to Telegram Bot API
             const token = '8334443770:AAFCWnMi4CuIvk7b06NPbH4Wt943IUZGIBE';
             const chatId = '-5196552819';
-            const tgUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+            const tgUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=HTML`;
 
             fetch(tgUrl)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     console.log('Telegram response:', data);
+                    if (data.ok) {
+                        // Save to localStorage
+                        localStorage.setItem('candidate_name', nameVal);
+                        localStorage.setItem('candidate_status', statusVal);
+
+                        // Reset button states
+                        if (submitBtn) submitBtn.disabled = false;
+                        if (btnText) btnText.classList.remove('hidden');
+                        if (btnSpinner) btnSpinner.classList.add('hidden');
+
+                        // Switch screens
+                        rsvpForm.classList.add('hidden');
+                        rsvpSuccess.classList.remove('hidden');
+
+                        // Smooth scroll to RSVP section header
+                        document.getElementById('rsvp-section').scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        throw new Error(data.description || 'Unknown Telegram API error');
+                    }
                 })
                 .catch(err => {
                     console.error('Telegram error:', err);
+
+                    // Reset button states
+                    if (submitBtn) submitBtn.disabled = false;
+                    if (btnText) btnText.classList.remove('hidden');
+                    if (btnSpinner) btnSpinner.classList.add('hidden');
+
+                    // Display error message
+                    const errorEl = document.createElement('div');
+                    errorEl.className = 'form-error-msg';
+                    errorEl.style.color = '#ff4d4d';
+                    errorEl.style.fontSize = '0.95rem';
+                    errorEl.style.marginTop = '15px';
+                    errorEl.style.textAlign = 'center';
+                    errorEl.style.fontFamily = 'var(--font-body)';
+                    errorEl.style.fontWeight = '500';
+                    errorEl.style.lineHeight = '1.4';
+                    errorEl.innerHTML = `⚠️ Ошибка при отправке. Пожалуйста, попробуйте снова или свяжитесь по телефону:<br><a href="tel:+79858302146" style="color: var(--color-gold); text-decoration: underline; font-weight: 700;">+7 (985) 830-21-46</a>`;
+                    
+                    rsvpForm.appendChild(errorEl);
                 });
-
-            // Simulate server request delay
-            setTimeout(() => {
-                // Save to localStorage
-                localStorage.setItem('candidate_name', nameVal);
-                localStorage.setItem('candidate_status', statusVal);
-
-                // Reset button states
-                if (submitBtn) submitBtn.disabled = false;
-                if (btnText) btnText.classList.remove('hidden');
-                if (btnSpinner) btnSpinner.classList.add('hidden');
-
-                // Switch screens
-                rsvpForm.classList.add('hidden');
-                rsvpSuccess.classList.remove('hidden');
-
-                // Smooth scroll to RSVP section header
-                document.getElementById('rsvp-section').scrollIntoView({ behavior: 'smooth' });
-
-            }, 1500);
         });
     }
 
