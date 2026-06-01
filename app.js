@@ -106,11 +106,17 @@ function initRSVPForm() {
 
     // Retrieve previous submission from localStorage if exists
     const cachedName = localStorage.getItem('candidate_name');
+    const cachedPhone = localStorage.getItem('candidate_phone');
     const cachedStatus = localStorage.getItem('candidate_status');
 
     if (cachedName && rsvpForm && rsvpSuccess) {
         // Pre-fill form fields
         document.getElementById('candidate-name').value = cachedName;
+        
+        const phoneInput = document.getElementById('candidate-phone');
+        if (phoneInput && cachedPhone) {
+            phoneInput.value = cachedPhone;
+        }
         
         const radio = document.querySelector(`input[name="candidate-status"][value="${cachedStatus}"]`);
         if (radio) radio.checked = true;
@@ -132,6 +138,7 @@ function initRSVPForm() {
             e.preventDefault();
 
             const nameVal = document.getElementById('candidate-name').value.trim();
+            const phoneVal = document.getElementById('candidate-phone').value.trim();
             const statusVal = document.querySelector('input[name="candidate-status"]:checked').value;
 
             // Remove any previous error message
@@ -147,7 +154,8 @@ function initRSVPForm() {
 
             // Form message for Telegram using HTML formatting
             const escapedName = escapeHTML(nameVal);
-            const messageText = `🔔 <b>Новый ответ на приглашение!</b>\n\n👤 <b>Имя:</b> ${escapedName}\n📢 <b>Статус:</b> ${statusVal === 'ready' ? '✅ С удовольствием приду поддержать бойцов' : '❌ К сожалению, не смогу присутствовать'}`;
+            const escapedPhone = escapeHTML(phoneVal);
+            const messageText = `🔔 <b>Новый ответ на приглашение!</b>\n\n👤 <b>Имя:</b> ${escapedName}\n📞 <b>Телефон:</b> ${escapedPhone}\n📢 <b>Статус:</b> ${statusVal === 'ready' ? '✅ С удовольствием приду поддержать бойцов' : '❌ К сожалению, не смогу присутствовать'}`;
 
             // Send to Telegram Bot API
             const token = '8334443770:AAFCWnMi4CuIvk7b06NPbH4Wt943IUZGIBE';
@@ -166,6 +174,7 @@ function initRSVPForm() {
                     if (data.ok) {
                         // Save to localStorage
                         localStorage.setItem('candidate_name', nameVal);
+                        localStorage.setItem('candidate_phone', phoneVal);
                         localStorage.setItem('candidate_status', statusVal);
 
                         // Reset button states
@@ -212,6 +221,7 @@ function initRSVPForm() {
         resetBtn.addEventListener('click', () => {
             // Clear cache
             localStorage.removeItem('candidate_name');
+            localStorage.removeItem('candidate_phone');
             localStorage.removeItem('candidate_status');
 
             // Show form
