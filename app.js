@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initGateTransition();
     initCountdownTimer();
     initRSVPForm();
+    initPhoneMask();
 });
 
 /**
@@ -232,3 +233,64 @@ function initRSVPForm() {
         });
     }
 }
+
+/**
+ * Implements a pure Vanilla JS input mask for Russian phone numbers: +7 (999) 999-99-99
+ */
+function initPhoneMask() {
+    const phoneInput = document.getElementById('candidate-phone');
+    if (!phoneInput) return;
+
+    const prefix = '+7 ';
+
+    // Set +7 on focus if empty
+    phoneInput.addEventListener('focus', () => {
+        if (!phoneInput.value) {
+            phoneInput.value = prefix;
+        }
+    });
+
+    // Clear if only prefix is left on blur
+    phoneInput.addEventListener('blur', () => {
+        if (phoneInput.value === prefix) {
+            phoneInput.value = '';
+        }
+    });
+
+    phoneInput.addEventListener('input', () => {
+        let value = phoneInput.value;
+
+        // Get only digits
+        let digits = value.replace(/\D/g, '');
+
+        // If it starts with 7 or 8 (usually typed by users), strip it to format as +7
+        if (digits.startsWith('7') || digits.startsWith('8')) {
+            digits = digits.substring(1);
+        }
+
+        // Construct phone mask structure: +7 (XXX) XXX-XX-XX
+        let formatted = '+7';
+        if (digits.length > 0) {
+            formatted += ' (' + digits.substring(0, 3);
+        }
+        if (digits.length >= 4) {
+            formatted += ') ' + digits.substring(3, 6);
+        }
+        if (digits.length >= 7) {
+            formatted += '-' + digits.substring(6, 8);
+        }
+        if (digits.length >= 9) {
+            formatted += '-' + digits.substring(8, 10);
+        }
+
+        phoneInput.value = formatted;
+    });
+
+    // Prevent deletion of +7 prefix via backspace
+    phoneInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && phoneInput.value.length <= 4) {
+            e.preventDefault();
+        }
+    });
+}
+
